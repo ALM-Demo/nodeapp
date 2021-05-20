@@ -2,9 +2,9 @@ FROM node:12.2
 RUN useradd -ms /bin/bash nodeapp
 ENV HOME=/home/nodeapp
 RUN apt-get update && apt-get install htop
-COPY package.json package-lock.json /home/nodeapp
-WORKDIR /home/nodeapp
+COPY package.json package-lock.json /home/nodeapp/
+WORKDIR /home/nodeapp/
 RUN npm install --silent --progress=false
-COPY . /home/nodeapp
+COPY . /home/nodeapp/
 EXPOSE 8080
 CMD [ "node", "server.js" ]
