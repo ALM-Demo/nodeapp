@@ -1,13 +1,9 @@
 FROM node:12.2
-
-ENV HOME=/home/nodeapp
+ENV HOME=/home/app
 RUN apt-get update && apt-get install htop
-COPY package.json package-lock.json $HOME/
-WORKDIR $HOME
+COPY package.json package-lock.json $HOME/node_docker/
+WORKDIR $HOME/node_docker
 RUN npm install --silent --progress=false
-COPY . $HOME/
+COPY . $HOME/node_docker
 EXPOSE 8080
-RUN useradd -r -u 9999 -d /dev/null -s /sbin/nologin abc 
-USER 9999:9999
-RUN whoami
 CMD [ "node", "server.js" ]
