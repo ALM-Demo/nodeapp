@@ -1,7 +1,5 @@
 FROM node:12.2
-RUN groupadd --gid 999 nodeuser \
-&& useradd --home-dir /home/nodeuser --create-home --uid 999 \
---gid 999 --shell /bin/sh --skel /dev/null nodeuser
+USER 1000:1000
 ENV HOME=/home/app
 RUN apt-get update && apt-get install htop
 COPY package.json package-lock.json $HOME/node_docker/
@@ -9,5 +7,4 @@ WORKDIR $HOME/node_docker
 RUN npm install --silent --progress=false
 COPY . $HOME/node_docker
 EXPOSE 8080
-USER nodeuser
 CMD [ "node", "server.js" ]
