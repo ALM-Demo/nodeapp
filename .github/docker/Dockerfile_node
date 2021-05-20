@@ -2,10 +2,10 @@ FROM node:12.2
 
 ENV HOME=/home/nodeapp
 RUN apt-get update && apt-get install htop
-COPY package.json package-lock.json $HOME
+COPY package.json package-lock.json $HOME/
 WORKDIR $HOME
 RUN npm install --silent --progress=false
-COPY . $HOME
+COPY . $HOME/
 EXPOSE 8080
 RUN useradd -r -u 9999 -d /dev/null -s /sbin/nologin abc 
 USER 9999:9999
