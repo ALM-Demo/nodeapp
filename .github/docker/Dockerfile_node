@@ -1,6 +1,6 @@
 FROM node:12.2
-RUN adduser -D javaapp
-USER javaapp
+RUN useradd −u 8877 nonroot
+USER nonroot
 ENV HOME=/home/app
 RUN apt-get update && apt-get install htop
 COPY package.json package-lock.json $HOME/node_docker/
