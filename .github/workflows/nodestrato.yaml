@@ -1,4 +1,4 @@
-name: strato depl
+name: strato dep
 'on':
   push:
     paths:
@@ -67,12 +67,10 @@ jobs:
     - name: Login to ACR
       run: |
         az acr login --name $AZURE_ACR_NAME
-
     - name: Push Docker Images
       run: |
         docker push "$AZURE_ACR_NAME.azurecr.io/$AZURE_WEB_APP_IMAGE_NAME:$AZURE_WEB_APP_IMAGE_TAG"
         docker push "$AZURE_ACR_NAME.azurecr.io/$AZURE_WEB_APP_IMAGE_NAME:latest"
-
     - name: Create Azure Web App
       run: |
         curl -H "accept: application/json" \
@@ -81,3 +79,4 @@ jobs:
           --request PUT \
           --data '{"spec": {"liveness_probe": {"initial_delay_seconds": 120},"enabled": true,"image": '\"${{ env.AZURE_ACR_NAME }}.azurecr.io/${{ env.AZURE_WEB_APP_IMAGE_NAME }}:${{ env.AZURE_WEB_APP_IMAGE_TAG }}\"',"network": {"access": "external"},"authentication": {"enabled": true}}}' \
           ${{ env.STRATOSPHERE_API_URL }}/geographies/${{ env.GEOGRAPHY }}/projects/${{ env.PROJECT_NAME }}/resources/container-web/${{ env.AZURE_WEB_APP_NAME }}
+        
