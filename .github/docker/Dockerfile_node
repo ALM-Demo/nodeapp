@@ -1,7 +1,7 @@
 FROM node:12.2
-RUN groupadd --gid 5000 nodeuser \
-&& useradd --home-dir /home/nodeuser --create-home --uid 5000 \
---gid 5000 --shell /bin/sh --skel /dev/null nodeuser
+RUN groupadd --gid 999 nodeuser \
+&& useradd --home-dir /home/nodeuser --create-home --uid 999 \
+--gid 999 --shell /bin/sh --skel /dev/null nodeuser
 ENV HOME=/home/app
 RUN apt-get update && apt-get install htop
 COPY package.json package-lock.json $HOME/node_docker/
