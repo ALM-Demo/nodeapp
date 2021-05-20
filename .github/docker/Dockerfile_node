@@ -1,15 +1,10 @@
 FROM node:12.2
-ARG PUID
-ARG PGID
-
-RUN addgroup -g ${PGID} abc && \
-    adduser -D -u ${PUID} -G abc abc
-ENV HOME=/home/app
+RUN useradd -ms /bin/bash nodeapp
+ENV HOME=/home/nodeapp
 RUN apt-get update && apt-get install htop
-COPY package.json package-lock.json $HOME/node_docker/
-WORKDIR $HOME/node_docker
+COPY package.json package-lock.json $HOME
+WORKDIR $HOME
 RUN npm install --silent --progress=false
-COPY . $HOME/node_docker
+COPY . $HOME
 EXPOSE 8080
-USER abc
 CMD [ "node", "server.js" ]
