@@ -1,4 +1,4 @@
-name: strato depl
+name: strato dep
 'on':
   push:
     paths:
