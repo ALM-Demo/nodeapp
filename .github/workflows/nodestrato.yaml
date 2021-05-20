@@ -47,7 +47,7 @@ jobs:
           -H "Content-Type: application/json" \
           -H "Authorization: Bearer ${{ secrets.ST_TOKEN }}" \
           --request PUT \
-          --data '{"spec": {"container_registry": {"access_policies": [{"name": "spn-alm", "type": "resource"}]}}}' \
+          --data '{"spec": {"container_registry": {"access_policies": [{"name": "spn-alm", "type": "resource"},{"name": "grp-sec-saas-sub-lplat-test-reader", "type": "group"}]}}}' \
           ${{ env.STRATOSPHERE_API_URL }}/geographies/${{ env.GEOGRAPHY }}/projects/${{ env.PROJECT_NAME }}/resources/azure-container-registry/${{ env.AZURE_ACR_NAME1 }} > temp.json
         echo "AZURE_ACR_NAME=$(jq -r '.status.azure.resource_name' temp.json)" >> $GITHUB_ENV
     
