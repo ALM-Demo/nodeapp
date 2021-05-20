@@ -1,10 +1,16 @@
 FROM node:12.2
-RUN useradd -ms /bin/bash nodeapp
+RUN adduser -D $USER \
+        && echo "$USER ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/$USER \
+        && chmod 0440 /etc/sudoers.d/$USER
+USER $USER
+
+RUN whoami
+RUN sudo whoami
 ENV HOME=/home/nodeapp
 RUN apt-get update && apt-get install htop
-COPY package.json package-lock.json /home/nodeapp/
-WORKDIR /home/nodeapp/
+COPY package.json package-lock.json $HOME
+WORKDIR $HOME
 RUN npm install --silent --progress=false
-COPY . /home/nodeapp/
+COPY . $HOME
 EXPOSE 8080
 CMD [ "node", "server.js" ]
