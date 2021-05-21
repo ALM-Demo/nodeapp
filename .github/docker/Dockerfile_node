@@ -5,8 +5,7 @@ COPY package.json package-lock.json /tmp/
 RUN useradd -r -u 9999 -d /dev/null -s /sbin/nologin nodeuser 
 USER 9999:9999
 WORKDIR /tmp
-RUN chown -R nodeuser:nodeuser /tmp
-RUN chmod 755 /tmp
+RUN chmod 777 /tmp
 USER nodeuser
 RUN npm install --silent --progress=false
 COPY . /tmp/
