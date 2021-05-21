@@ -7,5 +7,4 @@ RUN npm install --silent --progress=false
 COPY . /tmp/
 EXPOSE 8080
 USER 1001
-RUN whoami
 CMD [ "node", "server.js" ]
