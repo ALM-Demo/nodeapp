@@ -7,7 +7,7 @@ jobs:
   create-web-app:      
     runs-on: ubuntu-latest
     env:
-      GITHUB_REPO_NAME: 'nodeapp'
+      GITHUB_REPO_NAME: 'node'
       AZURE_SUBSCRIPTION: ''
       AZURE_RESOURCE_GROUP: ''
       AZURE_DEPLOY_ENVIRONMENT: 'dev'
