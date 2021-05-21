@@ -1,10 +1,11 @@
 FROM node:12.2
-RUN chmod g+rwX /tmp
+RUN chmod 777 /tmp
 RUN apt-get update && apt-get install htop
 COPY package.json package-lock.json /tmp/
 WORKDIR /tmp
 RUN npm install --silent --progress=false
-COPY . /tmp/
+COPY . /tmp/*
+RUN dir
 EXPOSE 8080
 USER 1001
 CMD [ "node", "server.js" ]
