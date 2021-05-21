@@ -2,5 +2,9 @@
   "alm-app-node-nodeapp-poc": {
     "resource_group": "rg-by-workflow-shared-dev-eus2-01",
     "webapp_url": "https://alm-app-node-nodeapp-poc.azurewebsites.net"
+  },
+  "alm-app-node-nodeapp-dev": {
+    "resource_group": "rg-by-workflow-shared-dev-eus2-01",
+    "webapp_url": "https://alm-app-node-nodeapp-dev.azurewebsites.net"
   }
 }
