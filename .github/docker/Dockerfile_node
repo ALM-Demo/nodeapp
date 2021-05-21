@@ -1,11 +1,12 @@
-FROM node:14
+FROM node:12.2
+RUN useradd --uid 1100 example --create-home
+ENV HOME=/home/nodeapp
 RUN apt-get update && apt-get install htop
+COPY package.json package-lock.json /tmp/
 WORKDIR /tmp
-RUN chmod 777 /tmp
-COPY package*.json ./
-RUN npm ci --only=production
-COPY . .
-RUN dir
+RUN npm install --silent --progress=false
+COPY example /tmp
 EXPOSE 8080
-USER 1001
+RUN dir
+USER 1100
 CMD [ "node", "server.js" ]
