@@ -6,7 +6,7 @@ WORKDIR /tmp
 RUN npm install --silent --progress=false
 COPY . /tmp
 EXPOSE 8080
-RUN chown -R admin:admin /app
-RUN chmod 755 /app
+RUN chown -R admin:admin /tmp
+RUN chmod 755 /tmp
 USER admin
 CMD [ "node", "server.js" ]
