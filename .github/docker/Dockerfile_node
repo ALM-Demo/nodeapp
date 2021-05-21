@@ -1,11 +1,10 @@
 FROM node:12.2
 RUN useradd --uid 1100 example --create-home
-ENV HOME=/home/nodeapp
 RUN apt-get update && apt-get install htop
 COPY package.json package-lock.json /tmp/
-WORKDIR /tmp
+WORKDIR /tmp/
 RUN npm install --silent --progress=false
-COPY example /tmp
+COPY . /tmp
 EXPOSE 8080
 RUN dir
 USER 1100
