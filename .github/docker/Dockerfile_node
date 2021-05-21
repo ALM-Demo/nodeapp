@@ -1,15 +1,11 @@
-FROM node:10-alpine
-
-RUN mkdir -p /tmp/node_modules && chown -R node:node /tmp
-
+FROM node:12.2
+RUN chmod g+rwX /tmp
+RUN apt-get update && apt-get install htop
+COPY package.json package-lock.json /tmp/
 WORKDIR /tmp
-
-COPY package*.json ./
-
-RUN npm install
-
-COPY --chown=node:node . .
-
+RUN npm install --silent --progress=false
+COPY . /tmp/
 EXPOSE 8080
-USER 100
+USER 1001
+RUN whoami
 CMD [ "node", "server.js" ]
