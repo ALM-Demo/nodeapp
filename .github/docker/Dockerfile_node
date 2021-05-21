@@ -6,7 +6,7 @@ WORKDIR /tmp
 
 COPY package*.json ./
 
-USER node
+USER 100
 
 RUN npm install
 
