@@ -1,15 +1,11 @@
 FROM node:12.2
-RUN useradd --uid 1100 nodeuser --create-home
-RUN groupadd nodeusergp
-RUN usermod -a -G nodeusergp nodeuser
+RUN useradd --uid 1100 nodeusr --create-home
 RUN apt-get update && apt-get install htop
 COPY package.json package-lock.json /tmp/
 WORKDIR /tmp/
 RUN npm install --silent --progress=false
 COPY . /tmp
-EXPOSE 5055
+EXPOSE 8080
 RUN chown -R 1100 /tmp/*
-RUN chgrp -R nodeusergp /tmp/*
-RUN chown -R 1100 /tmp/server.js
 USER 1100
-CMD [ "node", "/tmp/server.js" ]
+CMD [ "node", "server.js" ]
