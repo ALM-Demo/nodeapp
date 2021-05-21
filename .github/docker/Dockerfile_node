@@ -1,13 +1,15 @@
 FROM node:12.2
-
+RUN useradd -r -u 9999 -d /dev/null -s /sbin/nologin nodeuser 
+USER 9999:9999
+RUN whoami
 ENV HOME=/home/nodeapp
 RUN apt-get update && apt-get install htop
 COPY package.json package-lock.json /tmp/
 WORKDIR /tmp
+RUN chown -R nodeuser:nodeuser /tmp
+RUN chmod 755 /tmp
+USER nodeuser
 RUN npm install --silent --progress=false
 COPY . /tmp/
 EXPOSE 8080
-RUN useradd -r -u 9999 -d /dev/null -s /sbin/nologin nodeuser 
-USER 9999:9999
-RUN whoami
 CMD [ "node", "server.js" ]
