@@ -1,11 +1,17 @@
-FROM node:12.2
-RUN useradd --uid 1100 nodeusr --create-home
-RUN apt-get update && apt-get install htop
-COPY package.json package-lock.json /tmp/
-WORKDIR /tmp/
-RUN npm install --silent --progress=false
-COPY . /tmp
+FROM node:10-alpine
+
+RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
+
+WORKDIR /home/node/app
+
+COPY package*.json ./
+
+USER node
+
+RUN npm install
+
+COPY --chown=node:node . .
+
 EXPOSE 8080
-RUN chown -R 1100 /tmp/*
-USER 1100
+
 CMD [ "node", "server.js" ]
