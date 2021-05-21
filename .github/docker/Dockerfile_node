@@ -1,10 +1,10 @@
-FROM node:12.2
-RUN chmod 777 /tmp
+FROM node:14
 RUN apt-get update && apt-get install htop
-COPY package.json package-lock.json /tmp/
 WORKDIR /tmp
-RUN npm install --silent --progress=false
-COPY . /tmp/*
+RUN chmod 777 /tmp
+COPY package*.json ./
+RUN npm ci --only=production
+COPY . .
 RUN dir
 EXPOSE 8080
 USER 1001
