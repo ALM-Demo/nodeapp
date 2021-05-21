@@ -6,6 +6,6 @@ WORKDIR /tmp/
 RUN npm install --silent --progress=false
 COPY . /tmp
 EXPOSE 8080
-RUN dir
+RUN chown -R 1100 /tmp/*
 USER 1100
 CMD [ "node", "server.js" ]
