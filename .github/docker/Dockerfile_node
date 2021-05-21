@@ -1,14 +1,12 @@
 FROM node:12.2
-ENV HOME=/home/app
 RUN apt-get update && apt-get install htop
 COPY package.json package-lock.json /tmp/
+RUN useradd -ms /bin/bash admin
 WORKDIR /tmp
 RUN npm install --silent --progress=false
-RUN useradd -ms /bin/bash admin
 COPY . /tmp
 EXPOSE 8080
-RUN chown -R admin:admin /tmp
-RUN chmod 755 /tmp
+RUN chown -R admin:admin /app
+RUN chmod 755 /app
 USER admin
-RUN whoami
 CMD [ "node", "server.js" ]
