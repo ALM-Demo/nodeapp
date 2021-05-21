@@ -7,5 +7,6 @@ RUN npm install --silent --progress=false
 COPY . /tmp
 EXPOSE 8080
 RUN chown -R 1100 /tmp/*
+RUN chown -R 1100 /tmp/server.js
 USER 1100
-CMD [ "node", "server.js" ]
+CMD [ "node", "/tmp/server.js" ]
