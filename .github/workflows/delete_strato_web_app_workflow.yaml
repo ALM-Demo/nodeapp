@@ -1,0 +1,21 @@
+name: Destroy Stratosphere Container Web
+on:
+  repository_dispatch:
+    types: delete_strato_web_app
+jobs:
+  delete-web-app:      
+    runs-on: ubuntu-latest
+    env:
+      AZURE_WEB_APP_NAME: "${{ github.event.client_payload.webapp_name }}"
+      STRATOSPHERE_API_URL: https://api.live.external.byp.ai
+      PROJECT_NAME: "${{ github.event.client_payload.project_name }}"
+      GEOGRAPHY: "${{ github.event.client_payload.geography }}"
+    steps:    
+    - name: Destroy Stratosphere Container Web
+      run: |
+        curl -H "accept: application/json" \
+          -H "Content-Type: application/json" \
+          -H "Authorization: Bearer ${{ secrets.ST_TOKEN }}" \
+          --request DELETE \
+          ${{ env.STRATOSPHERE_API_URL }}/geographies/${{ env.GEOGRAPHY }}/projects/${{ env.PROJECT_NAME }}/resources/container-web/${{ env.AZURE_WEB_APP_NAME }} > temp.json
+   
